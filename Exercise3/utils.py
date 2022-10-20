@@ -2,7 +2,7 @@ import sys
 import numpy as np
 from matplotlib import pyplot
 
-sys.path.append('..')
+sys.path.append("..")
 from submission import SubmissionBase
 
 
@@ -18,7 +18,7 @@ def displayData(X, example_width=None, figsize=(10, 10)):
         m = 1
         X = X[None]  # Promote to a 2 dimensional array
     else:
-        raise IndexError('Input X should be 1 or 2 dimensional.')
+        raise IndexError("Input X should be 1 or 2 dimensional.")
 
     example_width = example_width or int(np.round(np.sqrt(n)))
     example_height = n / example_width
@@ -33,9 +33,12 @@ def displayData(X, example_width=None, figsize=(10, 10)):
     ax_array = [ax_array] if m == 1 else ax_array.ravel()
 
     for i, ax in enumerate(ax_array):
-        ax.imshow(X[i].reshape(example_width, example_width, order='F'),
-                  cmap='Greys', extent=[0, 1, 0, 1])
-        ax.axis('off')
+        ax.imshow(
+            X[i].reshape(example_width, example_width, order="F"),
+            cmap="Greys",
+            extent=[0, 1, 0, 1],
+        )
+        ax.axis("off")
 
 
 def sigmoid(z):
@@ -47,41 +50,57 @@ def sigmoid(z):
 
 class Grader(SubmissionBase):
     # Random Test Cases
-    X = np.stack([np.ones(20),
-                  np.exp(1) * np.sin(np.arange(1, 21)),
-                  np.exp(0.5) * np.cos(np.arange(1, 21))], axis=1)
+    X = np.stack(
+        [
+            np.ones(20),
+            np.exp(1) * np.sin(np.arange(1, 21)),
+            np.exp(0.5) * np.cos(np.arange(1, 21)),
+        ],
+        axis=1,
+    )
 
     y = (np.sin(X[:, 0] + X[:, 1]) > 0).astype(float)
 
-    Xm = np.array([[-1, -1],
-                   [-1, -2],
-                   [-2, -1],
-                   [-2, -2],
-                   [1, 1],
-                   [1, 2],
-                   [2, 1],
-                   [2, 2],
-                   [-1, 1],
-                   [-1, 2],
-                   [-2, 1],
-                   [-2, 2],
-                   [1, -1],
-                   [1, -2],
-                   [-2, -1],
-                   [-2, -2]])
+    Xm = np.array(
+        [
+            [-1, -1],
+            [-1, -2],
+            [-2, -1],
+            [-2, -2],
+            [1, 1],
+            [1, 2],
+            [2, 1],
+            [2, 2],
+            [-1, 1],
+            [-1, 2],
+            [-2, 1],
+            [-2, 2],
+            [1, -1],
+            [1, -2],
+            [-2, -1],
+            [-2, -2],
+        ]
+    )
     ym = np.array([0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3])
 
-    t1 = np.sin(np.reshape(np.arange(1, 25, 2), (4, 3), order='F'))
-    t2 = np.cos(np.reshape(np.arange(1, 41, 2), (4, 5), order='F'))
+    t1 = np.sin(np.reshape(np.arange(1, 25, 2), (4, 3), order="F"))
+    t2 = np.cos(np.reshape(np.arange(1, 41, 2), (4, 5), order="F"))
 
     def __init__(self):
-        part_names = ['Regularized Logistic Regression',
-                      'One-vs-All Classifier Training',
-                      'One-vs-All Classifier Prediction',
-                      'Neural Network Prediction Function']
-        part_names_key = ['jzAIf', 'LjDnh', '3yxcY', 'yNspP']
-        assignment_key = '2KZRbGlpQnyzVI8Ki4uXjw'
-        super().__init__('multi-class-classification-and-neural-networks', assignment_key, part_names, part_names_key)
+        part_names = [
+            "Regularized Logistic Regression",
+            "One-vs-All Classifier Training",
+            "One-vs-All Classifier Prediction",
+            "Neural Network Prediction Function",
+        ]
+        part_names_key = ["jzAIf", "LjDnh", "3yxcY", "yNspP"]
+        assignment_key = "2KZRbGlpQnyzVI8Ki4uXjw"
+        super().__init__(
+            "multi-class-classification-and-neural-networks",
+            assignment_key,
+            part_names,
+            part_names_key,
+        )
 
     def __iter__(self):
         for part_id in range(1, 5):
